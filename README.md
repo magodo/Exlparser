@@ -2,9 +2,9 @@
 
 # How this Setup
 
-1. Make sure you have python2.x installed.(2.7.3 is tested version)
+1. Make sure you have _python2.x_ installed.(2.7.3 is tested version)
 
-2. Setup xlrd package in 'lib':
+2. Setup _xlrd_ package in 'lib':
     cd lib/xlrd-0.9.3
     python setup.py install
 
