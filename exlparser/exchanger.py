@@ -154,7 +154,7 @@ def gen_header(fragments):
             if length_sum % 8 != 0:
                 error_info = "Bit-length of each structure is not 8's multiple"
                 raise KeyError(error_info)
-            content += "union u_%s\n{\n\tchar buffer[%d];\n\t%s map;\n}\n\n" %(currentName, length_sum/8, currentName)
+            content += "union u_%s\n{\n\tchar buffer[%d];\n\t%s map;\n};\n\n" %(currentName, length_sum/8, currentName)
             # Reset length_sum
             length_sum = 0
             # Set current keyName to the new keyName
@@ -187,7 +187,7 @@ def gen_header(fragments):
     if length_sum % 8 != 0:
         error_info = "Bit-length of each structure is not 8's multiple"
         raise KeyError(error_info)
-    content += "union u_%s\n{\n\tchar buffer[%d];\n\t%s map;\n}\n\n" %(currentName, length_sum/8, currentName)
+    content += "union u_%s\n{\n\tchar buffer[%d];\n\t%s map;\n};\n\n" %(currentName, length_sum/8, currentName)
 
     return content
 
@@ -219,6 +219,9 @@ if __name__ == "__main__":
         INPUT_DIR_NAME = "..\\input\\"
         OUTPUT_DIR_NAME = "..\\output\\"
     HEADER_FILE_NAME = "header.h"
+    # Remove existing .h file
+    if os.path.exists(OUTPUT_DIR_NAME + HEADER_FILE_NAME):
+            os.remove(OUTPUT_DIR_NAME + HEADER_FILE_NAME)
 
     # Iterate over input excels
     excels = os.listdir(INPUT_DIR_NAME)
@@ -261,7 +264,7 @@ if __name__ == "__main__":
             f.write(output)
 
         # Create header file
-        with open(OUTPUT_DIR_NAME+HEADER_FILE_NAME, 'wa') as f:
+        with open(OUTPUT_DIR_NAME+HEADER_FILE_NAME, 'a') as f:
             #print "Generation %s.h..." %(excel[:excel.index('.')])
             print "Generation/Appending %s...\n" %(HEADER_FILE_NAME)
             # Iterate over each row
