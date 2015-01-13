@@ -79,9 +79,13 @@ def fill_header(fragments):
     # 2. Checksum
     values = ''.join([''.join(f) for f in fragments])[2:]      # Exclude 2-byte value of "checksum"
     length = len(values)
+    bytecnt_is_even = True
     if length % 2 != 0:
-        raise ValueError("length of contents for checksum is not even")
+        bytecnt_is_even = False
+        print "WARNING: byte counts for checksum is not even"
     pairs = [values[i*2]+values[i*2+1] for i in range(length/2)]
+    if not bytecnt_is_even:
+        pairs += [values[length-1] + '\x00']
     # Calculate checksum
     check_sum = checksum(pairs)
     # fill in checksum
